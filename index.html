@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="/src/main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Manager</title>
-  </head>
-  <body>
-  </body>
-  <script type="module" src="/src/main.ts"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/src/app/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Manager</title>
+</head>
+
+<body>
+  <main class="container">
+    <div class="wrapper">
+      <section id="actions">
+        <button id="create-folder" class="action">Создать папку</button>
+        <button class="action">Удалить папку</button>
+        <button class="action">Загрузить файл</button>
+        <button class="action">Скачать файл</button>
+        <button class="action">Удалить файл</button>
+        <button class="action">Переименовать</button>
+        <button id="clear-bd" class="action">Очистить БД</button>
+      </section>
+      <section id="projects">
+        <nav id="structure">
+          <div id="structure-root" class="structure__container" data-objId="0">
+            <ul class="node__children"></ul>
+          </div>
+        </nav>
+        <section id="viewer">
+          <div id="tabs">
+            <article class="tab tab_active">MainWindow.cs</article>
+            <article class="tab">MainWindow.xaml</article>
+          </div>
+          <div id="file-window">
+            <div class="file__content">
+              <pre>console.log(Hello World)</pre>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+    <div class="description"></div>
+  </main>
+</body>
+<script type="module" src="/src/app/main.ts"></script>
+
 </html>

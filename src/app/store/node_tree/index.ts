@@ -1,5 +1,6 @@
-import { INodeObject, NodeObject } from '../../../entities/node/model/NodeObject.class';
+import { INodeObject, NodeObject } from '@/entities/node/model/NodeObject.class';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const NodeTreeStore = {
     initialize() {
         initiliaze();
@@ -7,8 +8,8 @@ export const NodeTreeStore = {
     select() {
         return select();
     },
-    dispatch(nodeObj: INodeObject) {
-        dispatch(nodeObj);
+    dispatch(nodeTree: Map<number, INodeObject>) {
+        dispatch(nodeTree);
     },
     clear() {
         clear();
@@ -17,24 +18,50 @@ export const NodeTreeStore = {
 
 function initiliaze() {
     if (!window.localStorage.getItem('nodeTreeRoot')) {
-        window.localStorage.setItem(
-            'node-tree-root',
-            JSON.stringify(new NodeObject('nodeTreeRoot', 'folder', null, ''))
-        );
+        const treeMap = new Map<number, INodeObject>();
+        treeMap.set(0, new NodeObject('nodeTreeRoot', 'folder', null, ''));
+        window.localStorage.setItem('nodeTreeRoot', JSON.stringify(treeMap, replacer));
     }
 }
 
-function select() {
-    return window.localStorage.getItem('nodeTreeRoot');
+function select(): Map<number, INodeObject> {
+    return JSON.parse(window.localStorage.getItem('nodeTreeRoot') ?? '', reviver);
 }
 
-function dispatch(nodeObj: INodeObject) {
-    window.localStorage.setItem('nodeTreeRoot', JSON.stringify(nodeObj));
+function dispatch(nodeTree: Map<number, INodeObject>) {
+    window.localStorage.setItem('nodeTreeRoot', JSON.stringify(nodeTree, replacer));
 }
 
 function clear() {
-    window.localStorage.setItem(
-        'node-tree-root',
-        JSON.stringify(new NodeObject('nodeTreeRoot', 'folder', null, ''))
-    );
+    const treeMap = new Map<number, INodeObject>();
+    treeMap.set(0, new NodeObject('nodeTreeRoot', 'folder', null, ''));
+    window.localStorage.setItem('nodeTreeRootE', JSON.stringify(treeMap, replacer));
+}
+
+function replacer(key: string, value: any) {
+    if (value instanceof Map) {
+        return {
+            dataType: 'Map',
+            value: Array.from(value.entries()),
+        };
+    } else if (value instanceof Set) {
+        return {
+            dataType: 'Set',
+            value: Array.from(value.keys()),
+        };
+    } else {
+        return value;
+    }
+}
+
+function reviver(key: string, value: any) {
+    if (typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
+            return new Map(value.value);
+        }
+        if (value.dataType === 'Set') {
+            return new Set(value.value);
+        }
+    }
+    return value;
 }
