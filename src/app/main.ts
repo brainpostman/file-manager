@@ -3,6 +3,9 @@ import { FileMap } from './store/file_map';
 import '@/features/createFolder';
 import '@/features/deleteFolder';
 import '@/features/clearApp';
+import { renderChildNodes } from '@/features/renderChildNodes';
 
 FolderTreeStore.initialize();
 FileMap.initialize();
+
+renderChildNodes(0);

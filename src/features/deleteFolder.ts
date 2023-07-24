@@ -1,6 +1,6 @@
 import { FileMap } from '@/app/store/file_map';
 import { FolderTreeStore } from '@/app/store/folder_tree';
-import { getChosenFolder, setChosenFolder } from '@/entities/node/folder/Folder';
+import { getChosenFolder, setChosenFolder } from '@/entities/node/folder/FolderElement';
 import { deleteFolderBranch } from '@/entities/node/folder/utils/deleteFolderBranch';
 
 const root = document.getElementById('structure-root') as HTMLElement;

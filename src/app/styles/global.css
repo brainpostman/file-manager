@@ -115,7 +115,6 @@ body {
     display: grid;
     grid-template-rows: 0fr;
     overflow: hidden;
-    transition: grid-template-rows 0.2s ease;
 }
 
 .node__expander_expanded {
