@@ -3,6 +3,7 @@ export function NodeDescription(node: HTMLElement, descr: string) {
     if (!description) return;
 
     node.onmouseover = (e) => {
+        if (!descr) return;
         description.style.top = `${e.clientY + 12}px`;
         description.style.left = `${e.clientX + 12}px`;
         description.style.display = 'initial';
@@ -11,6 +12,7 @@ export function NodeDescription(node: HTMLElement, descr: string) {
     };
 
     node.onmouseleave = (e) => {
+        if (!descr) return;
         description.style.opacity = '0';
         description.style.display = 'none';
         description.textContent = '';

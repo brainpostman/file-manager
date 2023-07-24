@@ -1,5 +1,15 @@
 import { INodeObject, NodeObject } from '@/entities/node/model/NodeObject.class';
 
+let nodeObjId = 0;
+
+export function getNodeObjId() {
+    return nodeObjId++;
+}
+
+function setNodeObjId(num: string) {
+    nodeObjId = +num;
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const FolderTreeStore = {
     initialize() {
@@ -17,9 +27,16 @@ export const FolderTreeStore = {
 };
 
 function initiliaze() {
+    if (!window.localStorage.getItem('nodeObjId')) {
+        window.localStorage.setItem('nodeObjId', '0');
+        setNodeObjId('0');
+    } else {
+        setNodeObjId(window.localStorage.getItem('nodeObjId')!);
+    }
     if (!window.localStorage.getItem('folderTreeRoot')) {
         const treeMap = new Map<number, INodeObject>();
-        treeMap.set(0, new NodeObject('folderTreeRoot', 'folder', null, ''));
+        const rootNode = new NodeObject('folderTreeRoot', 'folder', null, '');
+        treeMap.set(rootNode.id, rootNode);
         window.localStorage.setItem('folderTreeRoot', JSON.stringify(treeMap, replacer));
     }
 }
@@ -30,13 +47,15 @@ function select(): Map<number, INodeObject> {
 
 function dispatch(nodeTree: Map<number, INodeObject>) {
     window.localStorage.setItem('folderTreeRoot', JSON.stringify(nodeTree, replacer));
+    window.localStorage.setItem('nodeObjId', nodeObjId + '');
 }
 
 function clear() {
-    window.localStorage.removeItem('folderTreeRoot');
     const treeMap = new Map<number, INodeObject>();
-    treeMap.set(0, new NodeObject('folderTreeRoot', 'folder', null, ''));
+    const rootNode = new NodeObject('folderTreeRoot', 'folder', null, '');
+    treeMap.set(rootNode.id, rootNode);
     window.localStorage.setItem('folderTreeRoot', JSON.stringify(treeMap, replacer));
+    window.localStorage.setItem('nodeObjId', '0');
 }
 
 function replacer(key: string, value: any) {

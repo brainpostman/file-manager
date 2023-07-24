@@ -16,13 +16,13 @@ export function renderChildNodes(folderObjId: number) {
     const folderObj = folderStore.get(folderObjId)!;
     const list = folderElement?.querySelector<HTMLUListElement>('.node__children');
     if (list) list.innerHTML = '';
-    folderObj.childFolders?.forEach((id) => {
+    folderObj.childFolders?.forEach((name, id) => {
         const element = FolderElement(folderStore.get(id)!);
         const li = document.createElement('li');
         li.append(element);
         list?.insertAdjacentElement('beforeend', li);
     });
-    folderObj.childFiles?.forEach((id) => {
+    folderObj.childFiles?.forEach((name, id) => {
         const element = FileElement(fileMap.get(id)!);
         const li = document.createElement('li');
         li.append(element);

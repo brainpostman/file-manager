@@ -1,5 +1,5 @@
 import { renderChildNodes } from '@/features/renderChildNodes';
-import { NodeDescription } from '../NodeDescription';
+import { NodeDescription } from '../node_description/NodeDescription';
 import { INodeObject } from '../model/NodeObject.class';
 import { FolderTreeStore } from '@/app/store/folder_tree';
 

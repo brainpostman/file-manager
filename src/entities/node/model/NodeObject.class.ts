@@ -1,3 +1,5 @@
+import { getNodeObjId } from '@/app/store/folder_tree';
+
 export type NodeType = 'folder' | 'file';
 
 export interface INodeObject {
@@ -6,29 +8,28 @@ export interface INodeObject {
     type: NodeType;
     parentId: number | null;
     descr: string;
-    childFolders: Set<number> | null;
-    childFiles: Set<number> | null;
+    childFolders: Map<number, string> | null;
+    childFiles: Map<number, string> | null;
 }
 
 export class NodeObject implements INodeObject {
-    static objId = 0;
     id: number;
     name: string;
     type: NodeType;
     parentId: number | null;
     descr: string;
-    childFolders: Set<number> | null;
-    childFiles: Set<number> | null;
+    childFolders: Map<number, string> | null;
+    childFiles: Map<number, string> | null;
     constructor(name: string, type: NodeType, parentId: number | null, descr: string) {
-        this.id = NodeObject.objId++;
+        this.id = getNodeObjId();
         this.name = name;
         this.type = type;
         this.parentId = parentId;
         this.descr = descr;
         switch (type) {
             case 'folder':
-                this.childFolders = new Set<number>();
-                this.childFiles = new Set<number>();
+                this.childFolders = new Map<number, string>();
+                this.childFiles = new Map<number, string>();
                 break;
             default:
                 this.childFolders = null;
