@@ -4,9 +4,10 @@ export interface INodeObject {
     id: number;
     name: string;
     type: NodeType;
-    parent: INodeObject | null;
+    parentId: number | null;
     descr: string;
-    children: Set<number> | null;
+    childFolders: Set<number> | null;
+    childFiles: Set<number> | null;
 }
 
 export class NodeObject implements INodeObject {
@@ -14,21 +15,24 @@ export class NodeObject implements INodeObject {
     id: number;
     name: string;
     type: NodeType;
-    parent: INodeObject | null;
+    parentId: number | null;
     descr: string;
-    children: Set<number> | null;
-    constructor(name: string, type: NodeType, parent: INodeObject | null, descr: string) {
+    childFolders: Set<number> | null;
+    childFiles: Set<number> | null;
+    constructor(name: string, type: NodeType, parentId: number | null, descr: string) {
         this.id = NodeObject.objId++;
         this.name = name;
         this.type = type;
-        this.parent = parent;
+        this.parentId = parentId;
         this.descr = descr;
         switch (type) {
             case 'folder':
-                this.children = new Set<number>();
+                this.childFolders = new Set<number>();
+                this.childFiles = new Set<number>();
                 break;
             default:
-                this.children = null;
+                this.childFolders = null;
+                this.childFiles = null;
                 break;
         }
     }

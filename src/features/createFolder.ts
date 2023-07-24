@@ -1,28 +1,35 @@
-import { NodeTreeStore } from '@/app/store/node_tree';
+import { FolderTreeStore } from '@/app/store/folder_tree';
 import { NodePropsForm } from '@/entities/forms/NodePropsForm';
 import { INodePropsFormElements } from '@/entities/forms/model/NodePropsFormElements.interface';
-import { Folder, getChosenFolder } from '@/entities/node/folder/utils/Folder';
+import { Folder, getChosenFolder, setChosenFolder } from '@/entities/node/folder/Folder';
 import { NodeObject } from '@/entities/node/model/NodeObject.class';
 import { sortFolderChildren } from '@/entities/node/folder/utils/sortFolderChildren';
 import { Modal } from '@/shared/Modal/Modal';
 
-export function createFolder(event: SubmitEvent) {
+const root = document.getElementById('structure-root');
+
+document.addEventListener('click', (event) => {
+    const el = event.target as Element;
+    if (el.id === 'structure-root') setChosenFolder(root!);
+});
+
+function createFolder(event: SubmitEvent) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
     const elements = form.elements as INodePropsFormElements;
     let parentFolder = getChosenFolder();
     const parentId = parentFolder?.dataset.objId ?? 0;
-    const store = NodeTreeStore.select();
+    const store = FolderTreeStore.select();
     const parent = store.get(+parentId);
     const nodeObj = new NodeObject(
         elements['node-name'].value,
         'folder',
-        parent!,
+        +parentId,
         elements['node-descr'].value
     );
-    parent?.children?.add(nodeObj.id);
+    parent?.childFolders?.add(nodeObj.id);
     store.set(nodeObj.id, nodeObj);
-    NodeTreeStore.dispatch(store);
+    FolderTreeStore.dispatch(store);
     const listItem = document.createElement('li');
     const folder = Folder(nodeObj);
     const parentChildrenList = parentFolder?.querySelector<HTMLUListElement>('.node__children');
@@ -43,14 +50,5 @@ if (showCreationForm) {
             modal.remove();
         });
         document.body.insertAdjacentElement('beforeend', modal);
-    };
-}
-
-const clearBd = document.getElementById('clear-bd');
-
-if (clearBd) {
-    clearBd.onclick = () => {
-        window.localStorage.clear();
-        location.reload();
     };
 }

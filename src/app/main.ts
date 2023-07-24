@@ -1,12 +1,8 @@
-import { setChosenFolder } from '@/entities/node/folder/utils/Folder';
-import { NodeTreeStore } from './store/node_tree';
+import { FolderTreeStore } from './store/folder_tree';
+import { FileMap } from './store/file_map';
 import '@/features/createFolder';
+import '@/features/deleteFolder';
+import '@/features/clearApp';
 
-NodeTreeStore.initialize();
-
-const root = document.getElementById('structure-root');
-
-document.addEventListener('click', (event) => {
-    const el = event.target as Element;
-    if (el.id === 'structure-root') setChosenFolder(root!);
-});
+FolderTreeStore.initialize();
+FileMap.initialize();

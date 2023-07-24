@@ -1,7 +1,7 @@
-import { INodeObject, NodeObject } from '@/entities/node/model/NodeObject.class';
+import { INodeObject } from '@/entities/node/model/NodeObject.class';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const NodeTreeStore = {
+export const FileMap = {
     initialize() {
         initiliaze();
     },
@@ -17,25 +17,24 @@ export const NodeTreeStore = {
 };
 
 function initiliaze() {
-    if (!window.localStorage.getItem('nodeTreeRoot')) {
-        const treeMap = new Map<number, INodeObject>();
-        treeMap.set(0, new NodeObject('nodeTreeRoot', 'folder', null, ''));
-        window.localStorage.setItem('nodeTreeRoot', JSON.stringify(treeMap, replacer));
+    if (!window.localStorage.getItem('fileMap')) {
+        const fileMap = new Map<number, INodeObject>();
+        window.localStorage.setItem('fileMap', JSON.stringify(fileMap, replacer));
     }
 }
 
 function select(): Map<number, INodeObject> {
-    return JSON.parse(window.localStorage.getItem('nodeTreeRoot') ?? '', reviver);
+    return JSON.parse(window.localStorage.getItem('fileMap') ?? '', reviver);
 }
 
 function dispatch(nodeTree: Map<number, INodeObject>) {
-    window.localStorage.setItem('nodeTreeRoot', JSON.stringify(nodeTree, replacer));
+    window.localStorage.setItem('fileMap', JSON.stringify(nodeTree, replacer));
 }
 
 function clear() {
-    const treeMap = new Map<number, INodeObject>();
-    treeMap.set(0, new NodeObject('nodeTreeRoot', 'folder', null, ''));
-    window.localStorage.setItem('nodeTreeRootE', JSON.stringify(treeMap, replacer));
+    window.localStorage.removeItem('fileMap');
+    const fileMap = new Map<number, INodeObject>();
+    window.localStorage.setItem('fileMap', JSON.stringify(fileMap, replacer));
 }
 
 function replacer(key: string, value: any) {

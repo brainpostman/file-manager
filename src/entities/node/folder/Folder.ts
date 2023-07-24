@@ -1,5 +1,5 @@
-import { NodeDescription } from '../../NodeDescription';
-import { INodeObject } from '../../model/NodeObject.class';
+import { NodeDescription } from '../NodeDescription';
+import { INodeObject } from '../model/NodeObject.class';
 
 let chosenFolder = document.getElementById('structure-root');
 
@@ -16,13 +16,15 @@ const mutationCb = (records: MutationRecord[]) => {
     const children = records[0].target as HTMLUListElement;
     const folder = children.closest<HTMLElement>('.folder');
     const arrow = folder?.querySelector<HTMLImageElement>('.arrow');
-    if (!arrow || !children || !folder) return;
+    const folderImg = folder?.querySelector<HTMLImageElement>('.node-icon');
+    if (!arrow || !folder || !folderImg) return;
     if (children.childElementCount > 0) {
         arrow.style.visibility = 'visible';
         folder.dataset.expandable = '1';
     } else {
         arrow.style.visibility = 'hidden';
         folder.dataset.expandable = '0';
+        folderImg.src = '/folder.svg';
     }
 };
 
@@ -54,7 +56,6 @@ export function Folder(nodeObj: INodeObject): HTMLElement {
         nodeHeading.tabIndex = -1;
         nodeHeading.onfocus = () => {
             setChosenFolder(folder);
-            console.log(getChosenFolder());
         };
         const nodeExpander = folder.querySelector<HTMLDivElement>('.node__expander');
         const arrow = folder.querySelector<HTMLImageElement>('.arrow');
