@@ -1,5 +1,5 @@
 import { INodePropsFormElements } from './model/NodePropsFormElements.interface';
-import { validateNodeName } from './utils/ValidateNodeName';
+import { validateNodeName } from './utils/validateNodeName';
 
 export function NodePropsForm() {
     const form = document.createElement('form');

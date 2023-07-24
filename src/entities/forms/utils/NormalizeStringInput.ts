@@ -1,3 +1,3 @@
-export function NormalizeStringInput(str: string) {
+export function normalizeStringInput(str: string) {
     return str.trim().replace(/\s\s+/g, ' ');
 }

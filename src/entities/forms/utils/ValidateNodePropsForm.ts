@@ -1,5 +1,5 @@
 import { INodePropsFormElements } from '../model/NodePropsFormElements.interface';
-import { validateNodeName } from './ValidateNodeName';
+import { validateNodeName } from './validateNodeName';
 
 export function validateNodePropsForm(form: HTMLFormElement) {
     const elements = form.elements as INodePropsFormElements;

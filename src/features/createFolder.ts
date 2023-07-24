@@ -10,9 +10,9 @@ import { NodeObject } from '@/entities/node/model/NodeObject.class';
 import { sortFolderChildren } from '@/entities/node/folder/utils/sortFolderChildren';
 import { Modal } from '@/shared/Modal/Modal';
 import { renderChildNodes } from './renderChildNodes';
-import { validateNodePropsForm } from '@/entities/forms/utils/ValidateNodePropsForm';
-import { ensureUniqueName } from '@/entities/forms/utils/EnsureUniqueName';
-import { NormalizeStringInput } from '@/entities/forms/utils/NormalizeStringInput';
+import { ensureUniqueName } from '@/entities/forms/utils/ensureUniqueName';
+import { normalizeStringInput } from '@/entities/forms/utils/normalizeStringInput';
+import { validateNodePropsForm } from '@/entities/forms/utils/validateNodePropsForm';
 
 const root = document.getElementById('structure-root');
 
@@ -69,8 +69,8 @@ if (showCreationForm) {
         form.onsubmit = (e: SubmitEvent) => {
             e.preventDefault();
             const elements = form.elements as INodePropsFormElements;
-            elements.nodename.value = NormalizeStringInput(elements.nodename.value);
-            elements.nodedescr.value = NormalizeStringInput(elements.nodedescr.value);
+            elements.nodename.value = normalizeStringInput(elements.nodename.value);
+            elements.nodedescr.value = normalizeStringInput(elements.nodedescr.value);
             const validForm = validateNodePropsForm(form);
             if (validForm) {
                 createFolder(elements.nodename.value, elements.nodedescr.value);
