@@ -27,6 +27,7 @@ export function FileElement(nodeObj: INodeObject) {
                         </h3>
                     </div>`;
     file.title = nodeObj.descr;
+    file.dataset.objId = String(nodeObj.id);
     const nodeName = file.querySelector('.node__name');
     if (nodeName) {
         nodeName.textContent = nodeObj.name;
