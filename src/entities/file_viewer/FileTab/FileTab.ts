@@ -21,12 +21,15 @@ export function setChosenTab(el: HTMLElement | null) {
 
 export function FileTab(nodeObj: INodeObject) {
     const fileTab = document.createElement('article');
+    const fileName = document.createElement('div');
+    fileName.className = 'tab__filename';
     fileTab.className += 'tab';
     const close = document.createElement('img');
     close.className = 'file__close';
     close.src = `${basePath}/close.svg`;
     close.alt = 'X';
-    fileTab.textContent = nodeObj.name;
+    fileName.textContent = nodeObj.name;
+    fileTab.append(fileName);
     fileTab.append(close);
     fileTab.dataset.objId = String(nodeObj.id);
     fileTab.onclick = () => {

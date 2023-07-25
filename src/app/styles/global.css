@@ -77,7 +77,7 @@ body {
 
 .structure__container {
     float: left;
-    width: auto;
+    width: 100%;
     min-height: 100%;
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 .file .node__heading {
-    margin-left: 16px;
+    padding-left: 16px;
 }
 
 .node__expander {
@@ -186,14 +186,21 @@ body {
 }
 
 .tab {
+    display: flex;
+    align-items: center;
     padding: 8px 12px;
     border: 2px solid var(--highlight);
     height: min-content;
     border-bottom: none;
     opacity: 0.33;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+}
+
+.tab__filename {
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .tab_active {

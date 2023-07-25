@@ -25,9 +25,9 @@ function updateFileProps(
         NodeDescription(heading, newDescr);
     }
     if (tabList) {
-        const optionalTab = tabList.querySelector<HTMLElement>(
-            `.tab[data-obj-id="${fileNodeObj.id}"]`
-        );
+        const optionalTab = tabList
+            .querySelector(`.tab[data-obj-id="${fileNodeObj.id}"]`)
+            ?.querySelector('.tab__filename');
         if (optionalTab) optionalTab.textContent = newName;
     }
     fileNodeObj.name = newName;
