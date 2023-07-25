@@ -9,6 +9,8 @@ import { INodeObject } from '@/entities/node/model/NodeObject.class';
 import { NodeDescription } from '@/entities/node/node_description/NodeDescription';
 import { Modal } from '@/shared/Modal/Modal';
 
+const tabList = document.getElementById('tabs');
+
 function updateFileProps(
     fileElement: HTMLElement,
     fileNodeObj: INodeObject,
@@ -21,6 +23,12 @@ function updateFileProps(
     if (heading) {
         heading.textContent = newName;
         NodeDescription(heading, newDescr);
+    }
+    if (tabList) {
+        const optionalTab = tabList.querySelector<HTMLElement>(
+            `.tab[data-obj-id="${fileNodeObj.id}"]`
+        );
+        if (optionalTab) optionalTab.textContent = newName;
     }
     fileNodeObj.name = newName;
     fileNodeObj.descr = newDescr;
