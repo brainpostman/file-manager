@@ -12,7 +12,7 @@ export function ensureUniqueName(
                 const regex = /^(.*?)(\.[^.]*)?$/;
                 const matches = name.match(regex);
                 if (matches) {
-                    const newName = matches[1] + ' (копия)' + matches[2] ?? '';
+                    const newName = matches[1] + ' (копия)' + (matches[2] ?? '');
                     return ensureUniqueName(parentNode, namesArr, newName, nodeType);
                 }
                 break;

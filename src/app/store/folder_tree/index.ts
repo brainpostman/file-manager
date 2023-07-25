@@ -11,7 +11,7 @@ function setNodeObjId(num: string) {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const FolderTreeStore = {
+const FolderTreeStore = {
     initialize() {
         initiliaze();
     },
@@ -25,6 +25,8 @@ export const FolderTreeStore = {
         clear();
     },
 };
+
+export default FolderTreeStore;
 
 function initiliaze() {
     if (!window.localStorage.getItem('nodeObjId')) {

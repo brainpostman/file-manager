@@ -1,6 +1,6 @@
-import { FolderTreeStore } from '@/app/store/folder_tree';
-import { NodePropsForm } from '@/entities/forms/NodePropsForm';
-import { INodePropsFormElements } from '@/entities/forms/model/NodePropsFormElements.interface';
+import FolderTreeStore from '@/app/store/folder_tree';
+import { NodePropsForm } from '@/entities/forms/NodePropsForm/NodePropsForm';
+import { INodePropsFormElements } from '@/entities/forms/NodePropsForm/model/NodePropsFormElements.interface';
 import {
     FolderElement,
     getChosenFolder,
@@ -13,6 +13,7 @@ import { renderChildNodes } from './renderChildNodes';
 import { ensureUniqueName } from '@/entities/forms/utils/ensureUniqueName';
 import { normalizeStringInput } from '@/entities/forms/utils/normalizeStringInput';
 import { validateNodePropsForm } from '@/entities/forms/utils/validateNodePropsForm';
+import { handleNodeAddition } from '@/entities/node/folder/utils/handleNodeAddition';
 
 const root = document.getElementById('structure-root');
 
@@ -36,49 +37,30 @@ function createFolder(nodeName: string, nodeDescr: string) {
     parent?.childFolders?.set(nodeObj.id, nodeObj.name);
     store.set(nodeObj.id, nodeObj);
     FolderTreeStore.dispatch(store);
-    if (parentId !== 0) {
-        const nodeExpander = parentFolder.querySelector<HTMLDivElement>('.node__expander');
-        const arrow = parentFolder.querySelector<HTMLImageElement>('.arrow');
-        const folderImg = parentFolder.querySelector<HTMLImageElement>('.node-icon');
-        if (folderImg && arrow) {
-            parentFolder.dataset.expandable = '1';
-            nodeExpander?.classList.add('node__expander_expanded');
-            folderImg.src = '/folder-opened.svg';
-            arrow.style.visibility = 'visible';
-            arrow.classList.add('arrow_open');
-            renderChildNodes(+parentId);
-        }
-    } else {
-        const listItem = document.createElement('li');
-        const parentChildrenList = parentFolder?.querySelector<HTMLUListElement>('.node__children');
-        const folder = FolderElement(nodeObj);
-        if (parentChildrenList) {
-            listItem.insertAdjacentElement('afterbegin', folder);
-            parentChildrenList.insertAdjacentElement('beforeend', listItem);
-            sortFolderChildren(parentChildrenList);
-        }
-    }
+    handleNodeAddition(parentFolder, +parentId, nodeObj, FolderElement);
 }
 
 const showCreationForm = document.getElementById('create-folder');
 
+const form = NodePropsForm();
+const elements = form.elements as INodePropsFormElements;
+const modal = Modal(form, () => {
+    elements.nodename.value = '';
+    elements.nodedescr.value = '';
+});
+
 if (showCreationForm) {
     showCreationForm.onclick = () => {
-        const form = NodePropsForm();
-        const modal = Modal(form);
         form.onsubmit = (e: SubmitEvent) => {
             e.preventDefault();
-            const elements = form.elements as INodePropsFormElements;
             elements.nodename.value = normalizeStringInput(elements.nodename.value);
             elements.nodedescr.value = normalizeStringInput(elements.nodedescr.value);
             const validForm = validateNodePropsForm(form);
-            if (validForm) {
-                createFolder(elements.nodename.value, elements.nodedescr.value);
-                modal.remove();
-            } else {
-                elements.nodename.setCustomValidity('Некорректное название');
-                return;
-            }
+            if (!validForm) return;
+            createFolder(elements.nodename.value, elements.nodedescr.value);
+            elements.nodename.value = '';
+            elements.nodedescr.value = '';
+            modal.remove();
         };
         document.body.insertAdjacentElement('beforeend', modal);
     };

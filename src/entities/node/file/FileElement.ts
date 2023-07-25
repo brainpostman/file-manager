@@ -1,4 +1,4 @@
-import { INodeObject } from './model/NodeObject.class';
+import { INodeObject } from '../model/NodeObject.class';
 
 export function FileElement(nodeObj: INodeObject) {
     const file = document.createElement('article');

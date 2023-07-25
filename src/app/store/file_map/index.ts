@@ -1,7 +1,7 @@
 import { INodeObject } from '@/entities/node/model/NodeObject.class';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const FileMap = {
+const FileMap = {
     initialize() {
         initiliaze();
     },
@@ -15,6 +15,8 @@ export const FileMap = {
         clear();
     },
 };
+
+export default FileMap;
 
 function initiliaze() {
     if (!window.localStorage.getItem('fileMap')) {

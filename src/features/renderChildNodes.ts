@@ -1,6 +1,6 @@
-import { FileMap } from '@/app/store/file_map';
-import { FolderTreeStore } from '@/app/store/folder_tree';
-import { FileElement } from '@/entities/node/FileElement';
+import FileMap from '@/app/store/file_map';
+import FolderTreeStore from '@/app/store/folder_tree';
+import { FileElement } from '@/entities/node/file/FileElement';
 import { FolderElement } from '@/entities/node/folder/FolderElement';
 import { sortFolderChildren } from '@/entities/node/folder/utils/sortFolderChildren';
 

@@ -1,4 +1,4 @@
-export function Modal(element: Element) {
+export function Modal(element: Element, closeCallback: () => void) {
     const modal = document.createElement('div');
     const modal__overlay = document.createElement('div');
     const modal__container = document.createElement('div');
@@ -9,6 +9,7 @@ export function Modal(element: Element) {
     modal.insertAdjacentElement('afterbegin', modal__overlay);
     modal__container.insertAdjacentElement('afterbegin', element);
     modal__overlay.onclick = () => {
+        closeCallback();
         modal.remove();
     };
     return modal;

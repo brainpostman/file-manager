@@ -1,4 +1,4 @@
-const endingDotRegex = /^.*\./g;
+const endingDotRegex = /^.*\.$/;
 const forbiddenSymbolsRegex = /[<>:"|?*\\/]+/;
 
 export function validateNodeName(name: string) {

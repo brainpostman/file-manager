@@ -1,5 +1,5 @@
-import { FileMap } from '@/app/store/file_map';
-import { FolderTreeStore } from '@/app/store/folder_tree';
+import FileMap from '@/app/store/file_map';
+import FolderTreeStore from '@/app/store/folder_tree';
 import { getChosenFolder, setChosenFolder } from '@/entities/node/folder/FolderElement';
 import { deleteFolderBranch } from '@/entities/node/folder/utils/deleteFolderBranch';
 

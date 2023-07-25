@@ -1,4 +1,4 @@
-import { INodePropsFormElements } from '../model/NodePropsFormElements.interface';
+import { INodePropsFormElements } from '../NodePropsForm/model/NodePropsFormElements.interface';
 import { validateNodeName } from './validateNodeName';
 
 export function validateNodePropsForm(form: HTMLFormElement) {
@@ -7,7 +7,6 @@ export function validateNodePropsForm(form: HTMLFormElement) {
     if (validName) {
         return true;
     } else {
-        console.log('why no check validity');
         elements.nodename.setCustomValidity('Некорректное название');
         return false;
     }

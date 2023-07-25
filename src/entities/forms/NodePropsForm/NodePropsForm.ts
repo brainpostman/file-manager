@@ -1,24 +1,19 @@
 import { INodePropsFormElements } from './model/NodePropsFormElements.interface';
-import { validateNodeName } from './utils/validateNodeName';
+import { validateNodeName } from '../utils/validateNodeName';
 
 export function NodePropsForm() {
     const form = document.createElement('form');
+    form.className = 'form';
     form.id = 'node-props';
-    form.innerHTML = `<label for="name">
+    form.innerHTML = `<label for="nodename">
                         <span>Название:</span>
-                        <input id="nodename" type="text"/>
+                        <input id="nodename" name="nodename" type="text"/>
                     </label>
-                    <label for="descr">
+                    <label for="nodedescr">
                         <span>Описание:</span>
-                        <input id="nodedescr" type="text" />
+                        <input id="nodedescr" name="nodedescr" type="text" />
                     </label>
                     <button type="submit" form="node-props">ОК</button>`;
-    document.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.key === 'Enter' && !event.shiftKey) {
-            event.preventDefault();
-            form.dispatchEvent(new Event('submit'));
-        }
-    });
     const elements = form.elements as INodePropsFormElements;
     elements.nodename.oninput = () => {
         const validName = validateNodeName(elements.nodename.value);
@@ -26,5 +21,11 @@ export function NodePropsForm() {
             elements.nodename.setCustomValidity('');
         }
     };
+    form.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            form.dispatchEvent(new Event('submit'));
+        }
+    });
     return form;
 }
