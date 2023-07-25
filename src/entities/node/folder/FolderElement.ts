@@ -46,7 +46,7 @@ export function FolderElement(nodeObj: INodeObject): HTMLElement {
     folder.className += 'node folder';
     folder.innerHTML = `<div class="node__heading">
                             <img src="/folder-arrow.svg" class="arrow" />
-                            <img src="/folder.svg" class="node-icon" />
+                            <img src="/file-manager/folder.svg" class="node-icon" />
                             <h3 class="node__name">
                             </h3>
                         </div>
