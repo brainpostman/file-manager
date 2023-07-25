@@ -7,9 +7,7 @@ import {
     setChosenFolder,
 } from '@/entities/node/folder/FolderElement';
 import { NodeObject } from '@/entities/node/model/NodeObject.class';
-import { sortFolderChildren } from '@/entities/node/folder/utils/sortFolderChildren';
 import { Modal } from '@/shared/Modal/Modal';
-import { renderChildNodes } from './renderChildNodes';
 import { ensureUniqueName } from '@/entities/forms/utils/ensureUniqueName';
 import { normalizeStringInput } from '@/entities/forms/utils/normalizeStringInput';
 import { validateNodePropsForm } from '@/entities/forms/utils/validateNodePropsForm';

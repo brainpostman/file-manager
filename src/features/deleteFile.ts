@@ -8,7 +8,6 @@ function deleteFile() {
     if (!file) return;
     const fileId = +(file.dataset.objId as string);
     const listItem = file?.parentElement;
-    listItem?.remove();
     const folderStore = FolderTreeStore.select();
     const fileMap = FileMap.select();
     const fileStore = FileDatabase.getFileStore('readwrite');
@@ -21,6 +20,7 @@ function deleteFile() {
     FileMap.dispatch(fileMap);
     FolderTreeStore.dispatch(folderStore);
     setChosenFile(null);
+    listItem?.remove();
 }
 
 const deleteFileBtn = document.getElementById('delete-file');

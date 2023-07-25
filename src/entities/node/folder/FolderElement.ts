@@ -2,8 +2,11 @@ import { renderChildNodes } from '@/features/renderChildNodes';
 import { NodeDescription } from '../node_description/NodeDescription';
 import { INodeObject } from '../model/NodeObject.class';
 import FolderTreeStore from '@/app/store/folder_map';
+import { setChosenNode } from '..';
 
-let chosenFolder = document.getElementById('structure-root');
+let root = document.getElementById('structure-root');
+
+let chosenFolder = root;
 
 export const getChosenFolder = () => {
     return chosenFolder;
@@ -11,6 +14,7 @@ export const getChosenFolder = () => {
 
 export const setChosenFolder = (el: HTMLElement) => {
     chosenFolder = el;
+    console.log('chosen folder', el);
 };
 
 const mutationCb = (records: MutationRecord[]) => {
@@ -66,6 +70,7 @@ export function FolderElement(nodeObj: INodeObject): HTMLElement {
         nodeHeading.tabIndex = -1;
         nodeHeading.onfocus = () => {
             setChosenFolder(folder);
+            setChosenNode(folder);
         };
         const nodeExpander = folder.querySelector<HTMLDivElement>('.node__expander');
         const arrow = folder.querySelector<HTMLImageElement>('.arrow');

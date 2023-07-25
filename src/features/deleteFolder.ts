@@ -11,7 +11,6 @@ function deleteFolder() {
     const folderId = +(folder.dataset.objId ?? 0);
     if (folderId === 0) return;
     const listItem = folder?.parentElement;
-    listItem?.remove();
     const folderStore = FolderTreeStore.select();
     const fileMap = FileMap.select();
     const folderNodeObj = folderStore.get(folderId)!;
@@ -27,6 +26,7 @@ function deleteFolder() {
             ? root
             : root?.querySelector<HTMLElement>(`.folder[data-obj-id="${parentId!}"]`);
     setChosenFolder(parentElement ?? root);
+    listItem?.remove();
 }
 
 const deleteFolderBtn = document.getElementById('delete-folder');

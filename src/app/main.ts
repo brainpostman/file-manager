@@ -7,6 +7,7 @@ import '@/features/clearApp';
 import '@/features/deleteFile';
 import '@/features/uploadFile';
 import '@/features/downloadFile';
+import '@/features/updateNodeProps';
 import { renderChildNodes } from '@/features/renderChildNodes';
 
 FileDatabase.openDb();

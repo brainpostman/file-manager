@@ -60,7 +60,7 @@ function clear() {
     window.localStorage.setItem('nodeObjId', '0');
 }
 
-function replacer(key: string, value: any) {
+function replacer(_key: string, value: any) {
     if (value instanceof Map) {
         return {
             dataType: 'Map',
@@ -76,7 +76,7 @@ function replacer(key: string, value: any) {
     }
 }
 
-function reviver(key: string, value: any) {
+function reviver(_key: string, value: any) {
     if (typeof value === 'object' && value !== null) {
         if (value.dataType === 'Map') {
             return new Map(value.value);

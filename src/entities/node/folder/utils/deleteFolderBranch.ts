@@ -6,13 +6,13 @@ export function deleteFolderBranch(
     fileStore: Map<number, INodeObject>
 ) {
     if (node.childFiles) {
-        node.childFiles?.forEach((name, id) => {
+        node.childFiles?.forEach((_name, id) => {
             fileStore.delete(id);
             //TODO: delete actual files;
         });
     }
     if (!node.childFolders) return;
-    node.childFolders?.forEach((name, id) => {
+    node.childFolders?.forEach((_name, id) => {
         const childFolder = folderStore.get(id)!;
         deleteFolderBranch(childFolder, fileStore, folderStore);
         folderStore.delete(id);

@@ -19,14 +19,14 @@ export function FileUploadForm() {
                     </label>
                     <button type="submit" form="file-upload">ОК</button>`;
     const elements = form.elements as IFileUploadFormElements;
-    elements.loadfile.onchange = (e) => {
+    elements.loadfile.onchange = (_e) => {
         if (!elements.loadfile.files) {
             return;
         }
         const file = elements.loadfile.files[0];
         elements.nodename.value = file.name;
     };
-    elements.loadfile.onclick = (e) => {
+    elements.loadfile.onclick = (_e) => {
         elements.loadfile.value = '';
     };
     elements.nodename.oninput = () => {

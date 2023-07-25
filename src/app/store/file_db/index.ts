@@ -36,17 +36,17 @@ export default FileDatabase;
 function openDb() {
     console.log('openDb ...');
     let req = indexedDB.open('filedb', 1);
-    req.onsuccess = (e: any) => {
+    req.onsuccess = (_e: any) => {
         db = req.result;
         console.log('openDb success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.error('openDb:', req.error);
     };
 
-    req.onupgradeneeded = (e) => {
+    req.onupgradeneeded = (_e) => {
         console.log('openDb.onupgradeneeded');
-        let store = req.result.createObjectStore('files', {
+        req.result.createObjectStore('files', {
             keyPath: 'id',
         });
     };
@@ -57,7 +57,7 @@ function getFileStore(mode: IDBTransactionMode) {
     tx.oncomplete = () => {
         console.log('getFileStore complete');
     };
-    tx.onerror = (e: any) => {
+    tx.onerror = (_e: any) => {
         console.error(`getFileStore ${mode}:`, tx.error);
     };
     return tx.objectStore('files');
@@ -66,10 +66,10 @@ function getFileStore(mode: IDBTransactionMode) {
 function clearFileStore() {
     let store = getFileStore('readwrite');
     let req = store.clear();
-    req.onsuccess = (e) => {
+    req.onsuccess = (_e) => {
         console.log('clearFileStore success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.error('clearFileStore:', req.error);
     };
 }
@@ -79,17 +79,17 @@ function deleteDatabase() {
     req.onsuccess = () => {
         console.log('deleteDatabase success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.log('deleteDatabase:', req.error);
     };
 }
 
 function addFile(fileObj: IFileStorageObject, store: IDBObjectStore) {
     let req = store.add(fileObj);
-    req.onsuccess = (e) => {
+    req.onsuccess = (_e) => {
         console.log('addFile success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.error('addFile:', req.error);
     };
 }
@@ -100,22 +100,22 @@ function getFile(
     successCallback: (file: IFileStorageObject) => void
 ) {
     let req = store.get(id);
-    req.onsuccess = (e: any) => {
+    req.onsuccess = (_e: any) => {
         let value = req.result as IFileStorageObject;
         if (value) successCallback(value);
         console.log('getFile success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.error('getFile:', req.error);
     };
 }
 
 function deleteFile(id: number, store: IDBObjectStore) {
     let req = store.delete(id);
-    req.onsuccess = (e: any) => {
+    req.onsuccess = (_e: any) => {
         console.log('deleteFile success');
     };
-    req.onerror = (e: any) => {
+    req.onerror = (_e: any) => {
         console.error('deleteFile:', req.error);
     };
 }

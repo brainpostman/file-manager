@@ -1,4 +1,4 @@
-export function NodeDescription(node: HTMLElement, descr: string) {
+export function NodeDescription(node: HTMLHeadingElement, descr: string) {
     const description = document.querySelector<HTMLDivElement>('.description');
     if (!description) return;
 
@@ -11,7 +11,7 @@ export function NodeDescription(node: HTMLElement, descr: string) {
         description.style.opacity = '1';
     };
 
-    node.onmouseleave = (e) => {
+    node.onmouseleave = (_e) => {
         if (!descr) return;
         description.style.opacity = '0';
         description.style.display = 'none';

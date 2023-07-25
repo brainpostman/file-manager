@@ -1,3 +1,4 @@
+import { setChosenNode } from '..';
 import { setChosenFolder } from '../folder/FolderElement';
 import { INodeObject } from '../model/NodeObject.class';
 import { NodeDescription } from '../node_description/NodeDescription';
@@ -16,6 +17,8 @@ export const setChosenFile = (el: HTMLElement | null) => {
     const parent = el.closest<HTMLElement>('.folder');
     if (parent) setChosenFolder(parent);
     chosenFile = el;
+    console.log('chosen file', el);
+    console.log('chosen parent', parent);
 };
 
 export function FileElement(nodeObj: INodeObject) {
@@ -38,7 +41,7 @@ export function FileElement(nodeObj: INodeObject) {
         nodeHeading.tabIndex = -1;
         nodeHeading.onfocus = () => {
             setChosenFile(file);
-            console.log(getChosenFile());
+            setChosenNode(file);
         };
     }
     return file;
