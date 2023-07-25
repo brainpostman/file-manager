@@ -1,7 +1,7 @@
 import { renderChildNodes } from '@/features/renderChildNodes';
 import { NodeDescription } from '../node_description/NodeDescription';
 import { INodeObject } from '../model/NodeObject.class';
-import FolderTreeStore from '@/app/store/folder_tree';
+import FolderTreeStore from '@/app/store/folder_map';
 
 let chosenFolder = document.getElementById('structure-root');
 

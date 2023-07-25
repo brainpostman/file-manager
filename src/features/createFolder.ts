@@ -1,4 +1,4 @@
-import FolderTreeStore from '@/app/store/folder_tree';
+import FolderTreeStore from '@/app/store/folder_map';
 import { NodePropsForm } from '@/entities/forms/NodePropsForm/NodePropsForm';
 import { INodePropsFormElements } from '@/entities/forms/NodePropsForm/model/NodePropsFormElements.interface';
 import {
@@ -13,7 +13,7 @@ import { renderChildNodes } from './renderChildNodes';
 import { ensureUniqueName } from '@/entities/forms/utils/ensureUniqueName';
 import { normalizeStringInput } from '@/entities/forms/utils/normalizeStringInput';
 import { validateNodePropsForm } from '@/entities/forms/utils/validateNodePropsForm';
-import { handleNodeAddition } from '@/entities/node/folder/utils/handleNodeAddition';
+import { handleElementAddition } from '@/entities/node/folder/utils/handleElementAddition';
 
 const root = document.getElementById('structure-root');
 
@@ -37,7 +37,7 @@ function createFolder(nodeName: string, nodeDescr: string) {
     parent?.childFolders?.set(nodeObj.id, nodeObj.name);
     store.set(nodeObj.id, nodeObj);
     FolderTreeStore.dispatch(store);
-    handleNodeAddition(parentFolder, +parentId, nodeObj, FolderElement);
+    handleElementAddition(parentFolder, +parentId, nodeObj, FolderElement);
 }
 
 const showCreationForm = document.getElementById('create-folder');
@@ -45,8 +45,7 @@ const showCreationForm = document.getElementById('create-folder');
 const form = NodePropsForm();
 const elements = form.elements as INodePropsFormElements;
 const modal = Modal(form, () => {
-    elements.nodename.value = '';
-    elements.nodedescr.value = '';
+    form.reset();
 });
 
 if (showCreationForm) {
@@ -58,8 +57,7 @@ if (showCreationForm) {
             const validForm = validateNodePropsForm(form);
             if (!validForm) return;
             createFolder(elements.nodename.value, elements.nodedescr.value);
-            elements.nodename.value = '';
-            elements.nodedescr.value = '';
+            form.reset();
             modal.remove();
         };
         document.body.insertAdjacentElement('beforeend', modal);

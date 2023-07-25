@@ -1,4 +1,4 @@
-import { getNodeObjId } from '@/app/store/folder_tree';
+import { getNodeObjId } from '@/app/store/folder_map';
 
 export type NodeType = 'folder' | 'file';
 

@@ -2,7 +2,7 @@ import { renderChildNodes } from '@/features/renderChildNodes';
 import { INodeObject } from '../../model/NodeObject.class';
 import { sortFolderChildren } from './sortFolderChildren';
 
-export function handleNodeAddition(
+export function handleElementAddition(
     parentFolder: HTMLElement,
     parentId: number,
     newNode: INodeObject,

@@ -6,7 +6,7 @@ export function FileUploadForm() {
     form.className = 'form';
     form.id = 'file-upload';
     form.innerHTML = `<label class="file" for="loadfile">
-                        <input id="loadfile" name="loadfile" type="file"/>
+                        <input id="loadfile" name="loadfile" type="file" required/>
                         <span class="file__btn">Выберите файл</span> 
                     </label>
                     <label for="nodename">
@@ -20,10 +20,14 @@ export function FileUploadForm() {
                     <button type="submit" form="file-upload">ОК</button>`;
     const elements = form.elements as IFileUploadFormElements;
     elements.loadfile.onchange = (e) => {
-        const target = e.currentTarget as HTMLInputElement;
-        if (!target.files) return;
-        const file = target.files[0];
+        if (!elements.loadfile.files) {
+            return;
+        }
+        const file = elements.loadfile.files[0];
         elements.nodename.value = file.name;
+    };
+    elements.loadfile.onclick = (e) => {
+        elements.loadfile.value = '';
     };
     elements.nodename.oninput = () => {
         const validName = validateNodeName(elements.nodename.value);
