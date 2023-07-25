@@ -1,5 +1,6 @@
 import { INodeObject } from '@/entities/node/model/NodeObject.class';
 import { setChosenFileContent } from '../FileContent/FileContent';
+import { basePath } from '@/app/main';
 
 let chosenTab: HTMLElement | null = null;
 
@@ -23,7 +24,7 @@ export function FileTab(nodeObj: INodeObject) {
     fileTab.className += 'tab';
     const close = document.createElement('img');
     close.className = 'file__close';
-    close.src = '/close.svg';
+    close.src = `${basePath}/close.svg`;
     close.alt = 'X';
     fileTab.textContent = nodeObj.name;
     fileTab.append(close);

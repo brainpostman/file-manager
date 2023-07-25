@@ -3,6 +3,7 @@ import { NodeDescription } from '../node_description/NodeDescription';
 import { INodeObject } from '../model/NodeObject.class';
 import FolderTreeStore from '@/app/store/folder_map';
 import { setChosenNode } from '..';
+import { basePath } from '@/app/main';
 
 let root = document.getElementById('structure-root');
 
@@ -35,7 +36,7 @@ const mutationCb = (records: MutationRecord[]) => {
     } else {
         arrow.style.visibility = 'hidden';
         folder.dataset.expandable = '0';
-        folderImg.src = '/folder.svg';
+        folderImg.src = `${basePath}/folder.svg`;
     }
 };
 
@@ -45,8 +46,8 @@ export function FolderElement(nodeObj: INodeObject): HTMLElement {
     const folder = document.createElement('article');
     folder.className += 'node folder';
     folder.innerHTML = `<div class="node__heading">
-                            <img src="/folder-arrow.svg" class="arrow" />
-                            <img src="/folder.svg" class="node-icon" />
+                            <img src="${basePath}/folder-arrow.svg" class="arrow" />
+                            <img src="${basePath}/folder.svg" class="node-icon" />
                             <h3 class="node__name">
                             </h3>
                         </div>
@@ -86,12 +87,12 @@ export function FolderElement(nodeObj: INodeObject): HTMLElement {
             if (folder.dataset.expandable !== '1' || !folderImg) return;
             if (nodeExpander?.classList.contains('node__expander_expanded')) {
                 nodeExpander.classList.remove('node__expander_expanded');
-                folderImg.src = '/folder.svg';
+                folderImg.src = `${basePath}/folder.svg`;
                 arrow?.classList.remove('arrow_open');
                 children.innerHTML = '';
             } else {
                 nodeExpander?.classList.add('node__expander_expanded');
-                folderImg.src = '/folder-opened.svg';
+                folderImg.src = `${basePath}/folder-opened.svg`;
                 arrow?.classList.add('arrow_open');
                 renderChildNodes(nodeObj.id);
             }

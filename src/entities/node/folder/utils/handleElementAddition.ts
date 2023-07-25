@@ -1,6 +1,7 @@
 import { renderChildNodes } from '@/features/renderChildNodes';
 import { INodeObject } from '../../model/NodeObject.class';
 import { sortFolderChildren } from './sortFolderChildren';
+import { basePath } from '@/app/main';
 
 export function handleElementAddition(
     parentFolder: HTMLElement,
@@ -15,7 +16,7 @@ export function handleElementAddition(
         if (folderImg && arrow) {
             parentFolder.dataset.expandable = '1';
             nodeExpander?.classList.add('node__expander_expanded');
-            folderImg.src = '/folder-opened.svg';
+            folderImg.src = `${basePath}/folder-opened.svg`;
             arrow.style.visibility = 'visible';
             arrow.classList.add('arrow_open');
             renderChildNodes(+parentId);

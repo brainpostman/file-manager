@@ -10,6 +10,8 @@ import '@/features/downloadFile';
 import '@/features/updateNodeProps';
 import { renderChildNodes } from '@/features/renderChildNodes';
 
+export const basePath = '/file-manager';
+
 FileDatabase.openDb();
 FolderTreeStore.initialize();
 FileMap.initialize();

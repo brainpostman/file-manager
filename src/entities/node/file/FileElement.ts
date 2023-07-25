@@ -4,6 +4,7 @@ import { setChosenFolder } from '../folder/FolderElement';
 import { INodeObject } from '../model/NodeObject.class';
 import { NodeDescription } from '../node_description/NodeDescription';
 import { FileContent, setChosenFileContent } from '@/entities/file_viewer/FileContent/FileContent';
+import { basePath } from '@/app/main';
 
 let chosenFile: HTMLElement | null = null;
 
@@ -30,7 +31,7 @@ export function FileElement(fileNodeObj: INodeObject) {
     const file = document.createElement('article');
     file.className += 'node file';
     file.innerHTML = `<div class="node__heading" tabindex="-1">
-                        <img src="/file.svg" class="node-icon" />
+                        <img src="${basePath}/file.svg" class="node-icon" />
                         <h3 class="node__name">
                         </h3>
                     </div>`;
