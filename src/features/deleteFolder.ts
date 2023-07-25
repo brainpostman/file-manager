@@ -1,3 +1,4 @@
+import FileDatabase from '@/app/store/file_db';
 import FileMap from '@/app/store/file_map';
 import FolderTreeStore from '@/app/store/folder_map';
 import { getChosenFolder, setChosenFolder } from '@/entities/node/folder/FolderElement';
@@ -14,7 +15,8 @@ function deleteFolder() {
     const folderStore = FolderTreeStore.select();
     const fileMap = FileMap.select();
     const folderNodeObj = folderStore.get(folderId)!;
-    deleteFolderBranch(folderNodeObj, folderStore, fileMap);
+    const fileStore = FileDatabase.getFileStore('readwrite');
+    deleteFolderBranch(folderNodeObj, folderStore, fileMap, fileStore);
     const parentId = folderNodeObj.parentId;
     const parent = folderStore.get(parentId!);
     parent?.childFolders?.delete(folderId);
