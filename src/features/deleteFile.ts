@@ -23,10 +23,10 @@ function deleteFile() {
     setChosenFile(null);
 }
 
-const clickDeleteFileBtn = document.getElementById('delete-file');
+const deleteFileBtn = document.getElementById('delete-file');
 
-if (clickDeleteFileBtn) {
-    clickDeleteFileBtn.onclick = () => {
+if (deleteFileBtn) {
+    deleteFileBtn.onclick = () => {
         deleteFile();
     };
 }

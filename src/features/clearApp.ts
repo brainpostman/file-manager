@@ -1,9 +1,9 @@
 import FileDatabase from '@/app/store/file_db';
 
-const clearApp = document.getElementById('clear-app');
+const clearAppBtn = document.getElementById('clear-app');
 
-if (clearApp) {
-    clearApp.onclick = () => {
+if (clearAppBtn) {
+    clearAppBtn.onclick = () => {
         window.localStorage.clear();
         FileDatabase.deleteDatabase();
         location.reload();

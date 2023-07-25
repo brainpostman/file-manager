@@ -40,7 +40,7 @@ function createFolder(nodeName: string, nodeDescr: string) {
     handleElementAddition(parentFolder, +parentId, nodeObj, FolderElement);
 }
 
-const showCreationForm = document.getElementById('create-folder');
+const createFolderBtn = document.getElementById('create-folder');
 
 const form = NodePropsForm();
 const elements = form.elements as INodePropsFormElements;
@@ -48,8 +48,8 @@ const modal = Modal(form, () => {
     form.reset();
 });
 
-if (showCreationForm) {
-    showCreationForm.onclick = () => {
+if (createFolderBtn) {
+    createFolderBtn.onclick = () => {
         form.onsubmit = (e: SubmitEvent) => {
             e.preventDefault();
             elements.nodename.value = normalizeStringInput(elements.nodename.value);

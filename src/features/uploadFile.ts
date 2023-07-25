@@ -36,7 +36,7 @@ function uploadFile(nodeName: string, nodeDescr: string, file: File) {
     handleElementAddition(parentFolder, +parentId, nodeObj, FileElement);
 }
 
-const showUploadForm = document.getElementById('upload-file');
+const uploadFormBtn = document.getElementById('upload-file');
 const form = FileUploadForm();
 const elements = form.elements as IFileUploadFormElements;
 
@@ -44,8 +44,8 @@ const modal = Modal(form, () => {
     form.reset();
 });
 
-if (showUploadForm) {
-    showUploadForm.onclick = () => {
+if (uploadFormBtn) {
+    uploadFormBtn.onclick = () => {
         form.onsubmit = (e: SubmitEvent) => {
             e.preventDefault();
             elements.nodename.value = normalizeStringInput(elements.nodename.value);

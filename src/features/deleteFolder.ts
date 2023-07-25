@@ -29,10 +29,10 @@ function deleteFolder() {
     setChosenFolder(parentElement ?? root);
 }
 
-const clickDeleteFolderBtn = document.getElementById('delete-folder');
+const deleteFolderBtn = document.getElementById('delete-folder');
 
-if (clickDeleteFolderBtn) {
-    clickDeleteFolderBtn.onclick = () => {
+if (deleteFolderBtn) {
+    deleteFolderBtn.onclick = () => {
         deleteFolder();
     };
 }
